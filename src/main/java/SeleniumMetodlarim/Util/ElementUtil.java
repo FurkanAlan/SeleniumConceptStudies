@@ -26,7 +26,7 @@ public class ElementUtil {
      * @return
      */
     //Browser Launcher
-    public static WebDriver browserLauncher(WebDriver driver, String bName) {
+    public WebDriver browserLauncher(WebDriver driver, String bName) {
         if (bName.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
@@ -46,7 +46,7 @@ public class ElementUtil {
      * @param urlName
      */
     //url launcher
-    public static void findSurfPageName(WebDriver driver, String urlName) {
+    public void findSurfPageName(WebDriver driver, String urlName) {
         driver.get(urlName);
     }
 
@@ -54,7 +54,7 @@ public class ElementUtil {
      * @param driver
      * @param locatingElement
      */
-    public static void waitForElementsAvailability(WebDriver driver, By locatingElement) {
+    public void waitForElementsAvailability(WebDriver driver, By locatingElement) {
         WebDriverWait webWait = new WebDriverWait(driver, 13);
         webWait.until(ExpectedConditions.presenceOfElementLocated(locatingElement));
     }
@@ -67,7 +67,7 @@ public class ElementUtil {
      * @return
      */
 
-    public static WebElement getYourElement(WebDriver driver, By locatingElement) {
+    public WebElement getYourElement(WebDriver driver, By locatingElement) {
         waitForElementsAvailability(driver, locatingElement);
         return driver.findElement(locatingElement);
     }
@@ -77,21 +77,21 @@ public class ElementUtil {
      * @param driver
      * @param locatingElement
      */
-    public static void clickerOn(WebDriver driver, By locatingElement) {
+    public void clickerOn(WebDriver driver, By locatingElement) {
         driver.findElement(locatingElement).click();
     }
 
     /**
      * @param driver
      */
-    public static void quittingYourBrowser(WebDriver driver) {
+    public void qBrowser(WebDriver driver) {
         driver.quit();
     }
 
     /**
      * @param driver
      */
-    public static void closingYourBrowser(WebDriver driver) {
+    public void cBrowser(WebDriver driver) {
         driver.close();
     }
 
@@ -100,12 +100,20 @@ public class ElementUtil {
      * @param driver
      * @return
      */
-    public static String gettingAlertText(WebDriver driver) {
+    public String gettingAlertText(WebDriver driver) {
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
         System.out.println(alertText);
         alert.accept();
         return alertText;
 
+    }
+
+    public void slpBrowser(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
