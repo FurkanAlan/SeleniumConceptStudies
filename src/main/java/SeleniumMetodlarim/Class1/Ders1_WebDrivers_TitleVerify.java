@@ -35,6 +35,8 @@ public class Ders1_WebDrivers_TitleVerify {
             e.printStackTrace();
         }
         driver.quit();
+
+        System.out.println("Test finished");
     }
 
 }
