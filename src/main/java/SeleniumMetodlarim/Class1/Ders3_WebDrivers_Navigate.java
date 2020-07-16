@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class Ders3_WebDrivers_Navigate {
     public static void main(String[] args) {
 
-        ElementUtil eUtil = new ElementUtil();
+//        ElementUtil eUtil = new ElementUtil();
 
 
         WebDriverManager.chromedriver().setup();
@@ -24,8 +24,8 @@ public class Ders3_WebDrivers_Navigate {
         driver.navigate().refresh();
 
 
-        eUtil.slpBrowser(2000);
-        eUtil.qBrowser(driver);
+        ElementUtil.slpBrowser(2000);
+        ElementUtil.qBrowser(driver);
         System.out.println("Test Done");
     }
 }

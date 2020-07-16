@@ -26,15 +26,15 @@ public class ElementUtil {
      * @return
      */
     //Browser Launcher
-    public WebDriver browserLauncher(WebDriver driver, String bName) {
+    public static WebDriver browserLauncher(WebDriver driver, String bName) {
         if (bName.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-            System.out.println("chrome working");
+            System.out.println("you chose chrome browser");
         } else if (bName.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
-            System.out.println("firefox working");
+            System.out.println("you chose firefox browser");
         } else {
             System.out.println("Error, check it: " + bName);
         }
@@ -46,15 +46,33 @@ public class ElementUtil {
      * @param urlName
      */
     //url launcher
-    public void findSurfPageName(WebDriver driver, String urlName) {
+    public static void findSurfPageName(WebDriver driver, String urlName) {
         driver.get(urlName);
     }
 
     /**
      * @param driver
+     * @return
+     */
+    public static String pTitleOf(WebDriver driver) {
+        return driver.getTitle();
+    }
+
+    /**
+     * @param driver
+     * @param locatingElement
+     * @param someThing
+     */
+    public static void sendData(WebDriver driver, By locatingElement, String someThing) {
+        driver.findElement(locatingElement).sendKeys(someThing);
+    }
+
+
+    /**
+     * @param driver
      * @param locatingElement
      */
-    public void waitForElementsAvailability(WebDriver driver, By locatingElement) {
+    public static void waitForElementsAvailability(WebDriver driver, By locatingElement) {
         WebDriverWait webWait = new WebDriverWait(driver, 13);
         webWait.until(ExpectedConditions.presenceOfElementLocated(locatingElement));
     }
@@ -67,7 +85,7 @@ public class ElementUtil {
      * @return
      */
 
-    public WebElement getYourElement(WebDriver driver, By locatingElement) {
+    public static WebElement getYourElement(WebDriver driver, By locatingElement) {
         waitForElementsAvailability(driver, locatingElement);
         return driver.findElement(locatingElement);
     }
@@ -77,21 +95,21 @@ public class ElementUtil {
      * @param driver
      * @param locatingElement
      */
-    public void clickerOn(WebDriver driver, By locatingElement) {
+    public static void clickerOn(WebDriver driver, By locatingElement) {
         driver.findElement(locatingElement).click();
     }
 
     /**
      * @param driver
      */
-    public void qBrowser(WebDriver driver) {
+    public static void qBrowser(WebDriver driver) {
         driver.quit();
     }
 
     /**
      * @param driver
      */
-    public void cBrowser(WebDriver driver) {
+    public static void cBrowser(WebDriver driver) {
         driver.close();
     }
 
@@ -100,16 +118,16 @@ public class ElementUtil {
      * @param driver
      * @return
      */
-    public String gettingAlertText(WebDriver driver) {
+    public static String gettingAlertText(WebDriver driver) {
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
         System.out.println(alertText);
-        alert.accept();
+        alert.dismiss();
         return alertText;
 
     }
 
-    public void slpBrowser(int time) {
+    public static void slpBrowser(int time) {
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
