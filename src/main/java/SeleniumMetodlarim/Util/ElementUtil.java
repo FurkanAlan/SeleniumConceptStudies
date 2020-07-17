@@ -1,14 +1,15 @@
 package SeleniumMetodlarim.Util;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ElementUtil {
     //several common method storages
@@ -133,4 +134,16 @@ public class ElementUtil {
             e.printStackTrace();
         }
     }
+
+    public static void screenShotGetter(WebDriver driver, String locationToSave, String fileNameAndExtension) {
+        File resimCeken = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(resimCeken,
+                    new File(System.getProperty("user.dir") + locationToSave + fileNameAndExtension));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("resim cekerken hata oldu");
+        }
+    }
+
 }

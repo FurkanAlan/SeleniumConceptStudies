@@ -14,6 +14,7 @@ public class ders5_locators_linkText {
         driver.get("https://app.hubspot.com/login");
         ElementUtil.slpBrowser(5000);
 
+        //can get the text given for link, by doing that we can get locator
         By frPassword = By.linkText("Forgot my password");
         By pName = By.linkText("");
         By clcName = By.linkText("");
