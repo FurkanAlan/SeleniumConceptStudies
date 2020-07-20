@@ -6,12 +6,15 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class ElementUtil {
     //several common method storages
@@ -235,18 +238,60 @@ public class ElementUtil {
         return textFromRowsColumnList;
     }
 
+
     /**
      * Explicitly Wait Method applied, ExpectedConditions.presenceOfElementLocated 10 seconds
+     *
      * @param driver
      * @param locatingElement
+     * @param timeOutForElement
      * @return
      */
-    public static WebElement getElementWithExpWait(WebDriver driver, By locatingElement){
-        WebDriverWait waitForElementOrPage = new WebDriverWait(driver, 10);
+    public static WebElement getElementWithExpWaitApplied(WebDriver driver, By locatingElement, int timeOutForElement) {
+        WebDriverWait waitForElementOrPage = new WebDriverWait(driver, timeOutForElement);
         waitForElementOrPage.until(ExpectedConditions.presenceOfElementLocated(locatingElement));
         return driver.findElement(locatingElement);
     }
 
+
+    public static void fluentWaitForElement(WebDriver driver, int timeOutDuration,
+                                            int pollingEvery) {
+        FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+                .withTimeout(Duration.ofSeconds(timeOutDuration))
+                .pollingEvery(Duration.ofSeconds(pollingEvery))
+                .withMessage("Still W8 :)")
+                .ignoring(NoSuchMethodException.class);
+    }
+
+    public static void elementForFluentWait(WebDriver driver, By locatingElement, int timeOutDuration, int pollingEvery, String expText) {
+        FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+                .withTimeout(Duration.ofSeconds(timeOutDuration))
+                .pollingEvery(Duration.ofSeconds(pollingEvery))
+                .withMessage("Still W8 :)")
+                .ignoring(NoSuchMethodException.class);
+
+        WebElement elementForFluentWait = fluentWait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver webDriver) {
+                WebElement elementWaiter = webDriver.findElement(locatingElement);
+                String textFromElement = elementWaiter.getText();
+                if (textFromElement.equals(expText)) {
+                    System.out.println("Got the text: " + textFromElement);
+                    return elementWaiter;
+                } else {
+//                    System.out.println("Could not find the title, something wrong");
+                    return null;
+                }
+            }
+        });
+    }
+
+
+    public static void fileUploader(WebDriver driver, By locatingElement, String pathOfFile, int timeOutDuration) {
+        WebDriverWait wait = new WebDriverWait(driver, timeOutDuration);
+        WebElement elementForFluentWaitMethod2 =
+                wait.until(ExpectedConditions.presenceOfElementLocated(locatingElement));
+        elementForFluentWaitMethod2.sendKeys(pathOfFile);
+    }
 
     public static void multipleDropDownMethod(WebDriver driver, By locatingElement, String... inputsForDropDown) {
         List<WebElement> webElement = driver.findElements(locatingElement);

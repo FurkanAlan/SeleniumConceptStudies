@@ -35,12 +35,13 @@ public class ders2_ExplicitWaitWithMethod {
 
 
         System.out.println("####################### Explicitly Wait With Methods ###################################");
-        getElementWithExpWaitApplied(driver, loginUserName).sendKeys("test123@gmail.com");
-        String textFromField = getElementWithExpWaitApplied(driver, loginPassword).getTagName();
-        String textFromField2 = getElementWithExpWaitApplied(driver, loginPassword).getLocation().toString();
+        getElementWithExpWait(driver, loginUserName,5).sendKeys("test123@gmail.com");
+        String textFromField = getElementWithExpWait(driver, loginPassword,5).getTagName();
+        String textFromField2 = getElementWithExpWait(driver, loginPassword,5).getLocation().toString();
         System.out.println(textFromField);
         System.out.println(textFromField2);
-        System.out.println("#################################################################");
+        System.out.println("################################ The Title #################################");
+        System.out.println(driver.getTitle());
 
 
         //tearDown
@@ -48,8 +49,8 @@ public class ders2_ExplicitWaitWithMethod {
         ElementUtil.qBrowser(driver);
     }
 
-    public static WebElement getElementWithExpWaitApplied(WebDriver driver, By locatingElement) {
-        WebDriverWait waitForElementOrPage = new WebDriverWait(driver, 10);
+    public static WebElement getElementWithExpWait(WebDriver driver, By locatingElement, int timeOutForElement) {
+        WebDriverWait waitForElementOrPage = new WebDriverWait(driver, timeOutForElement);
         waitForElementOrPage.until(ExpectedConditions.presenceOfElementLocated(locatingElement));
         return driver.findElement(locatingElement);
     }
