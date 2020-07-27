@@ -37,6 +37,8 @@ public class Ders4_AdderRemoverOfElement {
 
         //2. method
         By locatingElementToRemove2Method = By.xpath("//div[@id='elements']//button");
+        //bazen bu sekilde olmasi hataya sebep oluyor ondan dolayi By.xpath("//div[@id='elements']//button");
+        //bu sekilde kullanilmasi daha guvenli bu sadece elementleri listelrken ki durumda karsilastim
         List<WebElement> elementsToRemove = driver.findElements(locatingElementToRemove2Method);
         int sizeOfElement = elementsToRemove.size();
         System.out.println(sizeOfElement);

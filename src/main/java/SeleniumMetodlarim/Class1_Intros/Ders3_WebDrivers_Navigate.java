@@ -5,7 +5,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Ders3_WebDrivers_Navigate {
+public class Ders3_WebDrivers_Navigate extends ElementUtil{
     public static void main(String[] args) {
 
         //// back - forward - refresh only for navigate method, but not for get method
@@ -25,8 +25,8 @@ public class Ders3_WebDrivers_Navigate {
         driver.navigate().refresh();
 
 
-        ElementUtil.slpBrowser(2000);
-        ElementUtil.qBrowser(driver);
+        slpBrowser(2000);
+        qBrowser(driver);
         System.out.println("Test Done");
     }
 }
